@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import * as NavigationBar from 'expo-navigation-bar';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -22,6 +23,13 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEffect(() => {
+    // Скрытие навигационной панели
+    NavigationBar.setVisibilityAsync('hidden');
+    // Установка прозрачного фона навигационной панели
+    NavigationBar.setBackgroundColorAsync('transparent');
+  }, []);
 
   if (!loaded) {
     return null;
