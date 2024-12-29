@@ -28,12 +28,18 @@ export default function TabLayout() {
             ...styles.tabBar,
           },
         }),
+        tabBarIconStyle: {
+          marginTop: 12, // Центрирование иконок
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Tasks',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="format-list-bulleted" color="#4A3780" />,
+          tabBarLabelStyle: {
+            color: '#4A3780'
+          },
         }}
       />
       <Tabs.Screen
@@ -51,7 +57,10 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="account-circle" color="#4A3780" />,
+          tabBarLabelStyle: {
+            color: '#4A3780'
+          },
         }}
       />
     </Tabs>
@@ -61,20 +70,15 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   tabBar: {
     position: 'absolute',
-    bottom: 16,
+    bottom: 0,
     left: 16,
     right: 16,
     height: 80,
-    borderRadius: 30,
     backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
     elevation: 8,
   },
   floatingButton: {
-    backgroundColor: Colors.light.tint, // Customize as needed
+    backgroundColor: '#4A3780', // Customize as needed
     width: 64,
     height: 64,
     borderRadius: 32,

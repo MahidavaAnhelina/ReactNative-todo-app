@@ -9,10 +9,12 @@ const TASKS_KEY = 'tasks';
 export const initializeTasks = async (): Promise<void> => {
   try {
     const existingTasks = await AsyncStorage.getItem(TASKS_KEY);
-    if (!existingTasks) {
+    console.log(existingTasks, 'test');
+    
+    // if (!existingTasks) {
       await AsyncStorage.setItem(TASKS_KEY, JSON.stringify(INITIAL_TASKS));
       console.log('Initialized tasks with default values.');
-    }
+    // }
   } catch (error) {
     console.error('Failed to initialize tasks:', error);
   }

@@ -1,20 +1,30 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 
 const AddTab = () => {
     return (
          <ParallaxScrollView
-         headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
+         customHeaderHeight={96}
+         headerBackgroundColor={{ light: '#4A3780', dark: '#4A3780' }}
                headerImage={
-                 <IconSymbol
-                   size={310}
-                   color="#808080"
-                   name="chevron.left.forwardslash.chevron.right"
-                   style={styles.headerImage}
-                 />
-               }>
+                 <Image
+                           source={require('@/assets/images/tasksListLogo.png')}
+                           style={styles.headerLogo}
+                         />
+               }
+               pageTitle={(
+                       <ThemedView style={styles.pageTitleContainer}>
+                         <ThemedText type="defaultSemiBold"
+                                     lightColor="white"
+                                     style={styles.pageTitle}
+                         >
+                           Add New Task
+                         </ThemedText>
+                       </ThemedView>
+                     )}
+               >
             <ThemedText type="title">Add task</ThemedText>
          </ParallaxScrollView>
     );
@@ -29,9 +39,28 @@ const styles = StyleSheet.create({
     left: -35,
     position: 'absolute',
   },
+  headerLogo: {
+    height: '100%',
+    width: '100%',
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+  },
   titleContainer: {
     flexDirection: 'row',
     gap: 8,
   },
+  pageTitleContainer: {
+    position: 'absolute',
+    // top: 50,
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    left: 0,
+    right: 0
+  },
+  pageTitle: {
+    textAlign: 'center',
+    marginTop: 50
+  }
 });
 

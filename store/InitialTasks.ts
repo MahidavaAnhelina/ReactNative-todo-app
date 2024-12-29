@@ -47,4 +47,31 @@ export const INITIAL_TASKS: Task[] = [
     notes: 'Research destinations and book tickets',
     status: Status.TODO
   },
+  {
+    id: '6',
+    title: 'Plan weekend trip',
+    category: Category.OTHER,
+    date: '2024-06-15',
+    time: '10:00',
+    notes: 'Research destinations and book tickets',
+    status: Status.TODO
+  },
+  {
+    id: '7',
+    title: 'Plan weekend trip',
+    category: Category.OTHER,
+    date: '2024-06-15',
+    time: '10:00',
+    notes: 'Research destinations and book tickets',
+    status: Status.TODO
+  },
+  {
+    id: '8',
+    title: 'Plan weekend trip',
+    category: Category.OTHER,
+    date: '2024-06-15',
+    time: '10:00',
+    notes: 'Research destinations and book tickets',
+    status: Status.TODO
+  },
 ];

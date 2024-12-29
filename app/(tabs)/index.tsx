@@ -4,8 +4,11 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { getTasks, initializeTasks } from '@/store/TaskStorage';
-import { useEffect, useState } from 'react';
-import { Task } from '@/types/task';
+import { useEffect, useMemo, useState } from 'react';
+import { Status, Task } from '@/types/task';
+
+import { format } from 'date-fns';
+import ActiveTasksBlock from '@/components/ActiveTasksBlock';
 
 export default function HomeScreen() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -24,24 +27,41 @@ export default function HomeScreen() {
     loadData();
   }, []);
 
+  const filteredTasksDone = useMemo(() => tasks.filter(({status}) => status === Status.DONE), [tasks]);
+  const filteredTasksOthers = useMemo(() => tasks.filter(({status}) => status !== Status.DONE), [tasks]);
+  
+
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: '#4A3780', dark: '#4A3780' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/tasksListLogo.png')}
+          style={styles.headerLogo}
         />
-      }>
+      }
+      customContentStyles={styles.customContent}
+      pageTitle={(
+        <ThemedView style={styles.pageTitleContainer}>
+          <ThemedText type="defaultSemiBold"
+                      lightColor="white"
+                      style={styles.pageSubTitle}
+          >
+            {format(new Date(), 'MMMM dd, yyyy')}
+            </ThemedText>
+          <ThemedText type="title"
+                      lightColor="white"
+                      style={styles.pageTitle}
+          >
+            My Todo List
+          </ThemedText>
+        </ThemedView>
+      )}
+    >
 
-    {tasks.map((item) => (
-      <ThemedView key={item.id} style={styles.taskItem}>
-        <ThemedText>📌 {item.title} ({item.category})</ThemedText>
-        <ThemedText>📅 {item.date} ⏰ {item.time}</ThemedText>
-        <ThemedText>📝 {item.notes}</ThemedText>
-        <ThemedText>📝 {item.status}</ThemedText>
-      </ThemedView>
-    ))}
+    <ActiveTasksBlock tasks={filteredTasksOthers}/>
+
+    {/* TODO: add tasks in Done status */}
 
     </ParallaxScrollView>
   );
@@ -57,12 +77,32 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
+  pageTitleContainer: {
+    position: 'absolute',
+    top: 0,
+    backgroundColor: 'transparent',
+    textAlign: 'center',
+    left: 0,
+    right: 0
+  },
+  headerLogo: {
+    height: '100%',
+    width: '100%',
     bottom: 0,
     left: 0,
     position: 'absolute',
   },
+  pageTitle: {
+    textAlign: 'center',
+    marginTop: 50
+  },
+  pageSubTitle: {
+    textAlign: 'center',
+    marginTop: 50
+  },
   taskItem: { marginTop: 10, borderBottomWidth: 1, paddingBottom: 5 },
+  customContent: {
+    overflow: 'visible',
+    backgroundColor: '#F1F5F9'
+  }
 });
